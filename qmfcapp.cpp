@@ -450,6 +450,8 @@ bool QMfcApp::winEventFilter(MSG *msg, long *result)
     }
 #ifdef QTWINMIGRATE_WITHMFC
     else if (mfc_app) {
+	if (msg->message == WM_DWMNCRENDERINGCHANGED)
+            return false;
         MSG tmp;
         while (doIdle && !PeekMessage(&tmp, 0, 0, 0, PM_NOREMOVE)) {
             if (!mfc_app->OnIdle(idleCount++))
